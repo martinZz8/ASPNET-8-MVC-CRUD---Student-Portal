@@ -1,0 +1,13 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Error Edit Student Page";    
+}
+
+@model Guid
+
+<h1>Error</h1>
+<p>An error occured during edit of student with id "@Model".</p>
+<p>There's no user with given id or you probably haven't filled name field.</p>
+<a asp-controller="Students" asp-action="Edit">Try again!</a>

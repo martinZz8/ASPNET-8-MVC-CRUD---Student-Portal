@@ -1,0 +1,55 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "All Students Page";
+}
+
+@model List<StudentPortal.Web.Models.Entities.Student>
+
+<h1>Students</h1>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Photo</th>
+            <th></th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in Model)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td>@student.Name</td>
+                <td>@student.Email</td>
+                <td>@student.Phone</td>
+                <td>
+                    @if (student.Photos.Count() > 0)
+                    {
+                        <span style="display: flex; flex-direction: column; justify-content: flex-start; align-items: center;">
+                            @foreach (var photo in student.Photos)
+                            {
+                                <img class="img_margin_bottom_wo_last" src="~/images/uploaded/@photo.FileName" />
+                            }
+                        </span>
+                    }
+                </td>
+                <td>
+                    <a class="btn btn-primary" asp-controller="Students" asp-action="Edit" asp-route-id="@student.Id">
+                        Edit
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" asp-controller="Students" asp-action="Delete" asp-route-id="@student.Id">
+                        Delete
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
