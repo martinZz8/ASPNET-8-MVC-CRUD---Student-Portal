@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using StudentPortal.Web.DbContexts;
+using StudentPortal.Web.Services;
 
 namespace StudentPortal.Web
 {
@@ -16,6 +17,8 @@ namespace StudentPortal.Web
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("Default"))
             );
+            // ... and register services to be injected into controllers
+            builder.Services.AddTransient<IStudentService, StudentService>(); //it => new StudentService(it.GetService<ApplicationDbContext>())
 
             var app = builder.Build();
 

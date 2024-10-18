@@ -9,13 +9,11 @@ namespace StudentPortal.Web.Controllers
 {
     public class StudentsController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
-        private readonly StudentService _studentService;
+        private readonly IStudentService _studentService;
 
-        public StudentsController(ApplicationDbContext dbContext)
+        public StudentsController(IStudentService studentService)
         {
-            _dbContext = dbContext;
-            _studentService = new StudentService(_dbContext);
+            _studentService = studentService;
         }
 
         // -- Create student page --

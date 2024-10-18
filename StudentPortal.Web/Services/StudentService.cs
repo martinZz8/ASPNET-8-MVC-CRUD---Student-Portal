@@ -6,7 +6,16 @@ using StudentPortal.Web.ViewModels;
 
 namespace StudentPortal.Web.Services
 {
-    public class StudentService
+    public interface IStudentService
+    {
+        Task<Student> AddStudent(AddStudentViewModel viewModel);
+        Task<IEnumerable<Student>> GetStudents();
+        Task<Student> GetStudentById(Guid id);
+        Task<Student> EditStudent(EditStudentViewModel viewModel);
+        Task<bool> DeleteStudentById(Guid id);
+    }
+
+    public class StudentService: IStudentService
     {
         private readonly ApplicationDbContext _dbContext;
 
@@ -70,17 +79,17 @@ namespace StudentPortal.Web.Services
             }
         }
 
-        internal async Task<IEnumerable<Student>> GetStudents()
+        public async Task<IEnumerable<Student>> GetStudents()
         {
             return await _dbContext.Students.Include(it => it.Photos).ToListAsync();
         }
 
-        internal async Task<Student> GetStudentById(Guid id)
+        public async Task<Student> GetStudentById(Guid id)
         {
             return await _dbContext.Students.Include(it => it.Photos).FirstOrDefaultAsync(it => it.Id.Equals(id));
         }
 
-        internal async Task<Student> EditStudent(EditStudentViewModel viewModel)
+        public async Task<Student> EditStudent(EditStudentViewModel viewModel)
         {
             // Check if mandatory fields are filled
             if (viewModel.Name == null || viewModel.Email == null)
@@ -136,7 +145,7 @@ namespace StudentPortal.Web.Services
             return foundStudent;
         }
 
-        internal async Task<bool> DeleteStudentById(Guid id)
+        public async Task<bool> DeleteStudentById(Guid id)
         {
             // Check if student with given id exists
             Student foundStudent = await _dbContext.Students.Include(it => it.Photos).FirstOrDefaultAsync(it => it.Id.Equals(id));

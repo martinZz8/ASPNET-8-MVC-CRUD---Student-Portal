@@ -15,6 +15,7 @@
             <th>Name</th>
             <th>Email</th>
             <th>Phone</th>
+            <th>Subsribed</th>
             <th>Photo</th>
             <th></th>
             <th></th>
@@ -28,6 +29,9 @@
                 <td>@student.Name</td>
                 <td>@student.Email</td>
                 <td>@student.Phone</td>
+                <td style="text-align: center">
+                    <input type="checkbox" class="form-check-input" checked="@student.Subscribed" disabled />
+                </td>
                 <td>
                     @if (student.Photos.Count() > 0)
                     {
